@@ -1,0 +1,47 @@
+class Producto {
+  - productoId: int
+  - nombre: String
+  - precioEmpaque: double
+  - unidadesEmpaque: int
+  - precioUnitarioMayoreo: double
+  - precioVentaUnitario: double
+  - cantidadInventario: int
+  - vendidoTotal: int
+  - fechaUltimaVenta: LocalDate
+
+  + calcularPrecioUnitarioMayoreo(): double
+  + registrarVenta(cantidad: int): void
+  + actualizarInventario(cantidadVendida: int): void
+  + calcularGananciaUnidad(): double
+}
+
+class Venta {
+  - ventaId: int
+  - cliente: Cliente
+  - fecha: LocalDateTime
+  - monto: double
+  - articulos: List<ArticuloVenta>
+
+  + calcularMontoTotal(): double
+  + agregarArticulo(articulo: ArticuloVenta): void
+  + registrarVenta(): void
+}
+
+class ArticuloVenta {
+  - venta: Venta
+  - producto: Producto
+  - cantidadVendida: int
+  - precioUnitarioVendido: double
+
+  + calcularSubtotal(): double
+  + calcularGanancia(): double
+}
+
+class Cliente {
+  - clienteId: int
+  - nombre: String
+}
+
+Cliente "1" --> "1..*" Venta
+Venta "1" --> "1..*" ArticuloVenta
+ArticuloVenta "1" --> "1" Producto
